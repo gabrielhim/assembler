@@ -4,7 +4,7 @@ from assembler.graph import reconstruct_genome
 
 
 @click.version_option(__version__)
-@click.command(help="Assembles k-mer sequences into a genome.")
+@click.command(no_args_is_help=True, help="Assembles k-mer sequences into a genome.")
 @click.option("-f", "--k-mers-file", help="File path with all k-mers, one per line.")
 @click.option("-o", "--output-file", required=False, help="File to write sequence to.")
 def main(k_mers_file: str, output_file: str | None):
