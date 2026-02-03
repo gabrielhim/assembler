@@ -1,6 +1,6 @@
-# Genome Assembler
+# Circular Genome Assembler
 
-This is a very basic version of a genome assembly tool. It implements a De Bruijn graph to assembly k-mers of DNA sequences into a genome.
+This is a very basic version of a genome assembly tool. It implements De Bruijn graphs to assemble DNA reads into a circular genome, such as plasmids or virus genomes.
 
 The aim of this tool is to study bioinformatics implementations in Python. It assumes error-free sequences and perfect read coverage.
 
@@ -20,16 +20,15 @@ pip install git+https://github.com/gabrielhim/assembler.git
 
 Create a test input:
 ```
-ACG
-CGT
-GTG
-TGT
-GTA
-TAT
-ATA
+GCCTATGC
+ATGCAAGT
+AGTCTAAG
+CAAGTCTA
+CTAAGCCT
+GCAAGTCT
 ```
 
-The only mandatory parameter is `--k-mer-file` (or simply `-f`), which receives the file listing all k-mer sequences:
+The only mandatory parameter is `--reads-file` (or simply `-f`), which receives the file listing all input sequences:
 ```bash
 assembler -f input.txt
 ```
@@ -37,7 +36,7 @@ assembler -f input.txt
 Default output is in stdout:
 ```
 Reconstructed genome:
-ACGTGTATA
+AAGCCTATGCAAGTCTAAGC
 ```
 
 Optionally, you can specify an output file to store the final sequence.

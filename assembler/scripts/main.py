@@ -1,17 +1,18 @@
 import click
 from assembler import __version__
-from assembler.graph import reconstruct_genome
+from assembler.graph import select_k_mer_size, reconstruct_genome
 
 
 @click.version_option(__version__)
-@click.command(no_args_is_help=True, help="Assembles k-mer sequences into a genome.")
-@click.option("-f", "--k-mers-file", help="File path with all k-mers, one per line.")
+@click.command(no_args_is_help=True, help="Assembles read sequences into a circular genome.")
+@click.option("-f", "--reads-file", help="File path with all DNA sequences, one per line.")
 @click.option("-o", "--output-file", required=False, help="File to write sequence to.")
-def main(k_mers_file: str, output_file: str | None):
-    with open(k_mers_file) as f:
-        k_mers = [k_mer.strip() for k_mer in f.readlines()]
+def main(reads_file: str, output_file: str | None):
+    with open(reads_file) as f:
+        reads = [read.strip() for read in f.readlines()]
 
-    genome = reconstruct_genome(k_mers)
+    k = select_k_mer_size(reads)
+    genome = reconstruct_genome(reads, k)
 
     if output_file is not None:
         print(f"Writing genome to {output_file}.")
